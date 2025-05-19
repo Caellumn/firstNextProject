@@ -18,6 +18,9 @@ const header = () => {
           <li>
             <Link href="/contact">Contact</Link>
           </li>
+          <li>
+            <Link href="/pokedex">Pokédex</Link>
+          </li>
         </ul>
       </nav>
     </header>
