@@ -1,10 +1,16 @@
+import { slugit } from "@/app/helpers";
 import Link from "next/link";
+
+interface PageParams {
+  id: string;
+  slug: string;
+}
 
 //generate metadata for the page
 export const generateMetadata = async ({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<PageParams>;
 }) => {
   const { id } = await params;
   const resp = await fetch(
@@ -22,7 +28,7 @@ export const generateMetadata = async ({
   };
 };
 
-const page = async ({ params }: { params: Promise<{ id: string }> }) => {
+const page = async ({ params }: { params: Promise<PageParams> }) => {
   const { id } = await params;
   const resp = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
@@ -47,13 +53,14 @@ interface Cocktail {
   strInstructions: string;
   strDrinkThumb: string;
 }
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<PageParams[]> {
   const resp = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=lemon`
   );
   const data = await resp.json();
   return data.drinks.map((drink: Cocktail) => ({
     id: drink.idDrink,
+    slug: slugit(drink.strDrink),
   }));
 }
 

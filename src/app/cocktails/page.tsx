@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
-
+import { slugit } from "../helpers";
 export const metadata: Metadata = {
   title: "Cocktails",
   description: "this is my lemon cocktails overview",
@@ -30,7 +30,9 @@ const page = async () => {
       <ul className="cocktails-list">
         {data.drinks.map((drink: Cocktail) => (
           <li key={drink.idDrink}>
-            <Link href={`/cocktails/${drink.idDrink}`}>
+            <Link
+              href={`/cocktails/${drink.idDrink}/${slugit(drink.strDrink)}`}
+            >
               <div>
                 <h2>{drink.strDrink}</h2>
                 <p>{drink.strInstructions}</p>
