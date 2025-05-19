@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { slugit } from "../helpers";
+import Image from "next/image";
 export const metadata: Metadata = {
   title: "Cocktails",
   description: "this is my lemon cocktails overview",
@@ -63,7 +64,12 @@ const page = async ({
                   <p>{drink.strInstructions}</p>
                   <div>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={drink.strDrinkThumb} alt={drink.strDrink} />
+                    <Image
+                      src={drink.strDrinkThumb}
+                      alt={drink.strDrink}
+                      width={200}
+                      height={200}
+                    />
                   </div>
                 </div>
               </Link>

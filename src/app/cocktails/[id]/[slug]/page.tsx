@@ -1,6 +1,7 @@
 import { slugit } from "@/app/helpers";
 import Link from "next/link";
 import { Metadata } from "next";
+import Image from "next/image";
 interface PageParams {
   id: string;
   slug: string;
@@ -48,7 +49,12 @@ const page = async ({ params }: { params: Promise<PageParams> }) => {
       <p>{data.drinks[0].strInstructions}</p>
       <div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={data.drinks[0].strDrinkThumb} alt={data.drinks[0].strDrink} />
+        <Image
+          src={data.drinks[0].strDrinkThumb}
+          alt={data.drinks[0].strDrink}
+          width={700}
+          height={700}
+        />
       </div>
     </>
   );

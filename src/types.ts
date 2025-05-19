@@ -1,3 +1,4 @@
+import { RowDataPacket } from "mysql2";
 export interface Pokémon {
   id: number;
   name: string;
@@ -11,4 +12,8 @@ export interface PokémonApiResult {
     name: string;
     url: string;
   }[];
+}
+
+export interface Id extends RowDataPacket {
+  id: number;
 }
