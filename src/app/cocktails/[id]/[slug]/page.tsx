@@ -1,6 +1,6 @@
 import { slugit } from "@/app/helpers";
 import Link from "next/link";
-
+import { Metadata } from "next";
 interface PageParams {
   id: string;
   slug: string;
@@ -11,7 +11,7 @@ export const generateMetadata = async ({
   params,
 }: {
   params: Promise<PageParams>;
-}) => {
+}): Promise<Metadata> => {
   const { id } = await params;
   const resp = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
@@ -20,6 +20,9 @@ export const generateMetadata = async ({
   return {
     title: data.drinks[0].strDrink,
     description: data.drinks[0].strInstructions,
+    alternates: {
+      canonical: `/cocktails/${id}/${slugit(data.drinks[0].strDrink)}`,
+    },
     openGraph: {
       title: data.drinks[0].strDrink,
       description: data.drinks[0].strInstructions,
@@ -27,6 +30,9 @@ export const generateMetadata = async ({
     },
   };
 };
+//voor type safety but better to set on true default = true
+//door true ongekende url worden toch statisch opgebouwd on first request
+// export const dynamicParams = false;
 
 const page = async ({ params }: { params: Promise<PageParams> }) => {
   const { id } = await params;

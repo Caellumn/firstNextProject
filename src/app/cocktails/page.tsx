@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 86400; //once a day
+
 const page = async () => {
   const resp = await fetch(
     "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=lemon"
@@ -26,7 +28,7 @@ const page = async () => {
   const data = await resp.json();
   return (
     <>
-      <h1>Cocktails page</h1>
+      <h1>Lemon Cocktails</h1>
       <ul className="cocktails-list">
         {data.drinks.map((drink: Cocktail) => (
           <li key={drink.idDrink}>
